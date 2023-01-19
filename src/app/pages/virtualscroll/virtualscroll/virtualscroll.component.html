@@ -6,9 +6,9 @@
     <button (click)="GoGeneralScrollPage()">Go GeneralScroll Page</button>
 </div> -->
 
-<div id="frame" style="height: {{ShowAreaHeight}}; overflow-y: scroll; border-style: solid; border-color: darkslategrey;" (scroll)="scroll()">
-    <div style="height: {{listHeight}}; background-color: red;">
-        <div style="position: relative; top: {{viewport.top}}; background-color: deepskyblue; height: {{viewport.height}}; width: 960px;">
+<div id="frame" style="height: {{ShowAreaHeight}}px; overflow-y: scroll; border-style: solid; border-color: darkslategrey;" (scroll)="scroll()">
+    <div style="height: {{listHeight}}px; background-color: red;">
+        <div style="position: relative; top: {{viewport.top}}px; background-color: deepskyblue; height: {{viewport.height}}px; width: 960px;">
             <div *ngFor="let column of showList" style="height: 32px;">
                 <span style="width: 60px; display: inline-block;">{{column[0]}}</span>
                 <span style="width: 120px; display: inline-block">{{column[1]}}</span>
