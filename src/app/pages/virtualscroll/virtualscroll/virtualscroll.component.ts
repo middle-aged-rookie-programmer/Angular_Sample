@@ -8,92 +8,88 @@ import { NavigationService } from 'src/app/services/navigation.service';
 })
 export class VirtualscrollComponent implements OnInit {  // 20名
   demoUser: Array<string> = ["Aimy", "Alex", "Anie", "Arnold", "Bob", "Brian", "Britney", "Carly", "Cara", "Daniel", "Dawson", "Deivies", "Edward", "Eimy", "Elie", "Emmy", "Eron", "Fargason", "Flank", "Kate"]
-  demoList: Array<any> = [];
-  showList: Array<any> = [];
+  demoList: Array<Array<number|string>> = [];
+  showList: Array<Array<number|string>> = [];
   NumOfRow: number = 10000;
-  RowHeight: string = "32px";
-  ShowAreaHeight: string = "640px"
-  UpdateInterval: string = "320px"
-  listHeight: string = "0px"
+  RowHeight: number = 32; // 32px
+  ShowAreaHeight: number = 640 // 640px
+  UpdateInterval: number = 320 // 320px
+  listHeight: number = 0 // 0px
   nowArea = 0;
   viewport = {
-    top: "0px",
-    height: "1280px"
-  }; //height初期値は、ShowAreaHeight*2と同じ値
-  // bottom: "640px"  //bottomは、ShowAreaHeightと同じ値
+    top: 0,
+    height: this.UpdateInterval*4
+  }; //height初期値は、SUpdateInterval*4
+     //一番上と一番下以外は、基本的にUpdateInterval*6
 
   constructor(private navigateS: NavigationService) { }
 
   ngOnInit(): void {
     this.demoList = this.getDemoLargeObject()
-    this.showList = this.getViewportList(document.getElementById("frame"), this.demoList)
+    const frame = document.getElementById("frame");
+    let st = frame!==null?frame.scrollTop: 0;
+    this.showList = this.getViewportList(st, this.demoList)
 
     // リスト全体の高さ取得
     this.listHeight = this.getHeight(this.NumOfRow)
 
     // UpdateIntervalの値取得
-    const updateIntevalNum = parseInt(this.UpdateInterval.replace("px", ""))
-    const frame=document.getElementById("frame")!;
-    this.nowArea = frame!==null? Math.floor(frame.scrollTop / updateIntevalNum): 0;
+    this.nowArea = frame!==null? Math.floor(frame.scrollTop / this.UpdateInterval): 0;
   }
 
-  getHeight(NumOfRow: number) {
-    const height = parseInt(this.RowHeight.replace("px", ""))
-    return (height * NumOfRow).toString() + "px"
+  getHeight(numOfRow: number) {
+    return this.RowHeight * numOfRow;
   }
 
   scroll() {
     // console.log("scroll !")
     const frame: HTMLElement | null = document.getElementById("frame");
-    const updateIntevalNum = parseInt(this.UpdateInterval.replace("px", ""))
-    if (frame!==null && this.nowArea !== Math.floor(frame.scrollTop / updateIntevalNum)) {
-      this.nowArea = Math.floor(frame.scrollTop / updateIntevalNum)
+    let st = frame!==null?frame.scrollTop: 0;
+    // 320pxスクロールごとに表示位置を更新する。320pxを１かたまりとして扱いたいため、Math.floorの中には〜/this.UpdateIntervalの値を設定する。
+    if (frame!==null && this.nowArea !== Math.floor(st / this.UpdateInterval)) {
+      this.nowArea = Math.floor(st / this.UpdateInterval)
 
       // 表示エリアの位置決め
-      this.viewport = this.getViewportArea(frame);
-      console.log(this.viewport)
-      this.showList = this.getViewportList(frame, this.demoList)
-      console.log(frame.scrollTop)
-      console.log(this.listHeight)
-      console.log(Math.floor(frame.scrollTop / updateIntevalNum))
+      this.viewport = this.getViewportArea(Math.floor(st / this.UpdateInterval)*this.UpdateInterval);
+      // console.log(this.viewport)
+      this.showList = this.getViewportList(Math.floor(st / this.UpdateInterval)*this.UpdateInterval, this.demoList)
+      // console.log(frame.scrollTop)
+      // console.log(this.listHeight)
+      // console.log(Math.floor(st / this.UpdateInterval))
     }
   }
 
-  getViewportArea(frame: HTMLElement) {
-    const updateIntevalNum = parseInt(this.UpdateInterval.replace("px", ""))
+  getViewportArea(scrollTop: number) {
     let viewport = {
-      top: "0px",
-      height: "1280px"
-      // bottom: "640px"
+      top: 0,
+      height: this.UpdateInterval*4
     }
-    // 320pxスクロールごとに表示位置を更新する
-    if (Math.floor(frame.scrollTop / updateIntevalNum) < 2) {
-      viewport.top = "0px"
-      viewport.height = "1920px"
-    } else if (Math.floor(frame.scrollTop / updateIntevalNum) > (this.NumOfRow / 10) - 5) { // 
-      viewport.top = this.getHeight(this.NumOfRow - 6 * 10)
-      viewport.height = "1920px"
+    if (scrollTop < 2*this.UpdateInterval) { // 0px~640pxの間
+      viewport.top = 0
+      viewport.height = this.UpdateInterval*6
+    } else if (scrollTop > this.NumOfRow*this.RowHeight - (this.ShowAreaHeight*3-this.UpdateInterval)) { // ”一番下-5*320px”〜”一番下”の間
+      viewport.top = this.getHeight(this.NumOfRow - this.UpdateInterval*6/this.RowHeight)
+      viewport.height = this.UpdateInterval*6
     } else {
-      viewport.top = this.getHeight((Math.floor(frame.scrollTop / updateIntevalNum) - 2) * 10)
-      viewport.height = "1920px"
+      viewport.top = this.getHeight((scrollTop-(2*this.UpdateInterval)) /this.RowHeight);
+      viewport.height = this.UpdateInterval*6
     }
     return viewport
   }
 
-  getViewportList(frame: HTMLElement | null, list: Array<any>) {
-    const updateIntevalNum = parseInt(this.UpdateInterval.replace("px", ""))
-    const showList = [];
-    if (frame!==null && Math.floor(frame.scrollTop / updateIntevalNum) < 2) {
-      for (let i = 0; i < 60; i++) {
+  getViewportList(scrollTop: number, list: Array<Array<number|string>>) {
+    const showList: Array<Array<number|string>> = [];
+    if (scrollTop < 2*this.UpdateInterval) {
+      for (let i = 0; i < this.UpdateInterval*6/this.RowHeight; i++) {
         showList.push(list[i])
       }
-    } else if (frame!==null && Math.floor(frame.scrollTop / updateIntevalNum) > (this.NumOfRow / 10) - 5) {
-      for (let i = list.length - 60; i < list.length; i++) {
+    } else if (scrollTop > this.NumOfRow*this.RowHeight - (this.ShowAreaHeight*3-this.UpdateInterval)) {
+      for (let i = list.length - this.UpdateInterval*6/this.RowHeight; i < list.length; i++) {
         showList.push(list[i])
       }
     } else {
-      const order = frame!==null ? Math.floor(frame.scrollTop / updateIntevalNum) * 10 - 20 : 0;
-      for (let i = order; i < order + 60; i++) {
+      const order = (scrollTop - 2*this.UpdateInterval)/this.RowHeight;
+      for (let i = order; i < order + this.UpdateInterval*6/this.RowHeight; i++) {
         showList.push(list[i])
       }
     }
