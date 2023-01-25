@@ -10,7 +10,7 @@ export class VirtualscrollComponent implements OnInit {  // 20名
   demoUser: Array<string> = ["Aimy", "Alex", "Anie", "Arnold", "Bob", "Brian", "Britney", "Carly", "Cara", "Daniel", "Dawson", "Deivies", "Edward", "Eimy", "Elie", "Emmy", "Eron", "Fargason", "Flank", "Kate"]
   demoList: Array<Array<number|string>> = [];
   showList: Array<Array<number|string>> = [];
-  NumOfRow: number = 10000;
+  NumOfRow: number = 50000;
   RowHeight: number = 32; // 32px
   ShowAreaHeight: number = 640 // 640px
   UpdateInterval: number = 320 // 320px

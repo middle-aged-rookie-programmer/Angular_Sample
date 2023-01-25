@@ -1,2 +1,16 @@
 <p>GeneralScroll works!</p>
 <button (click)="GoVirtualScrollPage()">Go VirtualScroll Page</button>
+
+<div id="frame" style="height: {{ShowAreaHeight}}; overflow-y: scroll; border-style: solid; border-color: darkslategrey;">
+    <div style="background-color: rgb(247, 224, 179);">
+        <div style="position: relative; background-color: rgb(194, 238, 252); width: 960px;">
+            <div *ngFor="let column of demoList" style="height: 32px;">
+                <span style="width: 60px; display: inline-block;">{{column[0]}}</span>
+                <span style="width: 120px; display: inline-block">{{column[1]}}</span>
+                <span style="width: 180px; display: inline-block">{{column[2]}}</span>
+                <span style="width: 180px; display: inline-block">{{column[3]}}</span>
+                <span style="width: 360px; display: inline-block">{{column[4]}}</span>
+            </div>
+        </div>
+    </div>
+</div>
