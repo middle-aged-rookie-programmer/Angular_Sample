@@ -1,0 +1,27 @@
+.divBorder {
+  margin: 3px;
+  border-collapse: separate;
+  border: 2px dashed #6666dd;
+}
+.spanBorder {
+  margin: 3px;
+  border-collapse: separate;
+  border: 2px dashed #55bb99;
+}
+.dispBorder {
+  border-style: solid;
+}
+.hide {
+  height: 0px;
+}
+.appear {
+  height: auto;
+}
+.spacer {
+  .one_sp {
+    padding-left: 12px;
+  }
+  .two_sp {
+    padding-left: 24px;
+  }
+}

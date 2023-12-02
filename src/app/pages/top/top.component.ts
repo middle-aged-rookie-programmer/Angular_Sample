@@ -15,4 +15,8 @@ export class TopComponent implements OnInit {
   GoVirtualScrollPage(){
     this.navigateS.GoVirtualScrollPage();
   }
+
+  GoHtmlDisplayPage() {
+    this.navigateS.GoHtmlDisplayPage();
+  }
 }

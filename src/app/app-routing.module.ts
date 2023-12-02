@@ -3,34 +3,40 @@ import { RouterModule, Routes } from '@angular/router';
 import { TopComponent } from 'src/app/pages/top/top.component';
 import { VirtualscrollComponent } from 'src/app/pages/virtualscroll/virtualscroll/virtualscroll.component';
 import { GeneralScrollComponent } from 'src/app/pages/virtualscroll/generalscroll/generalscroll.component';
+import { DisplayComponent } from './pages/html/display/display.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'samples/top',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'samples', // デスクトップ
-    children: [ // childrenにコンポーネントをルーティングすることで、子供にレイアウトを継承できる。（<router></router>）
+    children: [
+      // childrenにコンポーネントをルーティングすることで、子供にレイアウトを継承できる。（<router></router>）
       {
         path: 'top',
-        component: TopComponent
+        component: TopComponent,
       },
       {
-        path: 'virtualscroll',
-        component: VirtualscrollComponent
+        path: 'virtual_scroll',
+        component: VirtualscrollComponent,
       },
       {
-        path: 'GeneralScroll',
-        component: GeneralScrollComponent
-      }
-    ]
-  }
+        path: 'general_scroll',
+        component: GeneralScrollComponent,
+      },
+      {
+        path: 'html_display',
+        component: DisplayComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
