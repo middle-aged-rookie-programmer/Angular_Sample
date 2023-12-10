@@ -5,23 +5,33 @@
     {{ param }}
   </option>
 </select>
-<br />
-<button (click)="ControlBorder()">エレメントの枠線を付け外しします</button>
-<br />
 <div class="spacer">
   {{ innerHtml }}
-  <h2 style="background-color: #dddddd">"{{ displayParam }}" sample</h2>
+  <h2 style="background-color: #dddddd">
+    "display :{{ displayParam }}" sample
+  </h2>
   <div outarea [hidden]="displayParam !== displayParams[0]">
-    <div style="display: block; border: solid 2px cadetblue">
+    <div style="color: cadetblue">at HTML</div>
+    <div
+      id="controller"
+      style="
+        display: block;
+        border: solid 2px aquamarine;
+        background-color: aquamarine;
+      "
+    >
       <div>
-        &lt;div <span *ngIf="isFlexList[0]">style="{{ displayParam }}" </span>
+        &lt;div
+        <span *ngIf="isFlexList[0]">style="display : {{ displayParam }}" </span>
         <button (click)="UpdateFlex(0)">
           <span *ngIf="isFlexList[0]">Off </span
           ><span *ngIf="!isFlexList[0]">On </span> {{ displayParam }}</button
         >&gt;<br />
         <span class="one_sp"
           >&lt;div
-          <span *ngIf="isFlexList[1]">style="{{ displayParam }}" </span>
+          <span *ngIf="isFlexList[1]"
+            >style="display : {{ displayParam }}"
+          </span>
           <button (click)="UpdateFlex(1)">
             <span *ngIf="isFlexList[1]">Off </span
             ><span *ngIf="!isFlexList[1]">On </span> {{ displayParam }}</button
@@ -30,7 +40,9 @@
         <span class="one_sp">&lt;div&gt;div2&lt;/div&gt;</span><br />
         <span class="one_sp"
           >&lt;div
-          <span *ngIf="isFlexList[2]">style="{{ displayParam }}" </span>
+          <span *ngIf="isFlexList[2]"
+            >style="display : {{ displayParam }}"
+          </span>
           <button (click)="UpdateFlex(2)">
             <span *ngIf="isFlexList[2]">Off </span
             ><span *ngIf="!isFlexList[2]">On </span> {{ displayParam }}</button
@@ -38,7 +50,9 @@
         ><br />
         <span class="two_sp"
           >&lt;div
-          <span *ngIf="isFlexList[3]">style="{{ displayParam }}" </span>
+          <span *ngIf="isFlexList[3]"
+            >style="display : {{ displayParam }}"
+          </span>
           <button (click)="UpdateFlex(3)">
             <span *ngIf="isFlexList[3]">Off </span
             ><span *ngIf="!isFlexList[3]">On </span> {{ displayParam }}</button
@@ -51,7 +65,15 @@
       </div>
     </div>
     <br />
-    <div style="display: block; border: solid 2px darkgreen">
+    <div style="color: gray">at Browser (How it is displayed)</div>
+    <div
+      id="viewer"
+      style="
+        display: block;
+        border: solid 2px lightgray;
+        background-color: lightgray;
+      "
+    >
       <div id="flex0">
         <div id="flex1">div1</div>
         <div>div2</div>
@@ -65,10 +87,20 @@
   </div>
 
   <div outarea [hidden]="displayParam !== displayParams[1]">
-    <div style="display: block; border: solid 2px cadetblue">
+    <div style="color: cadetblue">at HTML</div>
+    <div
+      id="controller"
+      style="
+        display: block;
+        border: solid 2px aquamarine;
+        background-color: aquamarine;
+      "
+    >
       <div>
         &lt;div
-        <span *ngIf="isInlineFlexList[0]">style="{{ displayParam }}" </span>
+        <span *ngIf="isInlineFlexList[0]"
+          >style="display : {{ displayParam }}"
+        </span>
         <button (click)="UpdateInlineFlex(0)">
           <span *ngIf="isInlineFlexList[0]">Off </span
           ><span *ngIf="!isInlineFlexList[0]">On </span>
@@ -76,7 +108,9 @@
         >&gt;<br />
         <span class="one_sp"
           >&lt;div
-          <span *ngIf="isInlineFlexList[1]">style="{{ displayParam }}" </span>
+          <span *ngIf="isInlineFlexList[1]"
+            >style="display : {{ displayParam }}"
+          </span>
           <button (click)="UpdateInlineFlex(1)">
             <span *ngIf="isInlineFlexList[1]">Off </span
             ><span *ngIf="!isInlineFlexList[1]">On </span>
@@ -86,7 +120,9 @@
         <span class="one_sp">&lt;div&gt;div2&lt;/div&gt;</span><br />
         <span class="one_sp"
           >&lt;div
-          <span *ngIf="isInlineFlexList[2]">style="{{ displayParam }}" </span>
+          <span *ngIf="isInlineFlexList[2]"
+            >style="display : {{ displayParam }}"
+          </span>
           <button (click)="UpdateInlineFlex(2)">
             <span *ngIf="isInlineFlexList[2]">Off </span
             ><span *ngIf="!isInlineFlexList[2]">On </span>
@@ -95,7 +131,9 @@
         ><br />
         <span class="two_sp"
           >&lt;div
-          <span *ngIf="isInlineFlexList[3]">style="{{ displayParam }}" </span>
+          <span *ngIf="isInlineFlexList[3]"
+            >style="display : {{ displayParam }}"
+          </span>
           <button (click)="UpdateInlineFlex(3)">
             <span *ngIf="isInlineFlexList[3]">Off </span
             ><span *ngIf="!isInlineFlexList[3]">On </span>
@@ -110,7 +148,15 @@
     </div>
     <br />
 
-    <div style="display: block; border: solid 2px darkgreen">
+    <div style="color: gray">at Browser (How it is displayed)</div>
+    <div
+      id="viewer"
+      style="
+        display: block;
+        border: solid 2px lightgray;
+        background-color: lightgray;
+      "
+    >
       <div id="inline_flex0">
         <div id="inline_flex1">div1</div>
         <div>div2</div>
@@ -124,16 +170,28 @@
   </div>
 
   <div outarea [hidden]="displayParam !== displayParams[2]">
-    <div style="display: block; border: solid 2px cadetblue">
+    <div style="color: cadetblue">at HTML</div>
+    <div
+      id="controller"
+      style="
+        display: block;
+        border: solid 2px aquamarine;
+        background-color: aquamarine;
+      "
+    >
       <div>
         &lt;span
-        <span *ngIf="isBlockList[0]">style="{{ displayParam }}" </span>
+        <span *ngIf="isBlockList[0]"
+          >style="display : {{ displayParam }}"
+        </span>
         <button (click)="UpdateBlock(0)">
           <span *ngIf="isBlockList[0]">Off </span
           ><span *ngIf="!isBlockList[0]">On </span> {{ displayParam }}</button
         >&gt;span1 &lt;/span&gt;<br />
         &lt;span
-        <span *ngIf="isBlockList[1]">style="{{ displayParam }}" </span>
+        <span *ngIf="isBlockList[1]"
+          >style="display : {{ displayParam }}"
+        </span>
         <button (click)="UpdateBlock(1)">
           <span *ngIf="isBlockList[1]">Off </span
           ><span *ngIf="!isBlockList[1]">On </span> {{ displayParam }}</button
@@ -143,7 +201,15 @@
     </div>
     <br />
 
-    <div style="display: block; border: solid 2px darkgreen">
+    <div style="color: gray">at Browser (How it is displayed)</div>
+    <div
+      id="viewer"
+      style="
+        display: block;
+        border: solid 2px lightgray;
+        background-color: lightgray;
+      "
+    >
       <span id="block0">span1</span>
       <span id="block1">span2</span>
       <span>span3</span>
@@ -151,18 +217,30 @@
   </div>
 
   <div outarea [hidden]="displayParam !== displayParams[3]">
-    <div style="display: block; border: solid 2px cadetblue">
+    <div style="color: cadetblue">at HTML</div>
+    <div
+      id="controller"
+      style="
+        display: block;
+        border: solid 2px aquamarine;
+        background-color: aquamarine;
+      "
+    >
       <div>
         &lt;span&gt;span1 &lt;/span&gt;<br />
         &lt;div
-        <span *ngIf="isInlineBlockList[0]">style="{{ displayParam }}" </span>
+        <span *ngIf="isInlineBlockList[0]"
+          >style="display : {{ displayParam }}"
+        </span>
         <button (click)="UpdateInlineBlock(0)">
           <span *ngIf="isInlineBlockList[0]">Off </span
           ><span *ngIf="!isInlineBlockList[0]">On </span>
           {{ displayParam }}</button
         >&gt;<br />
         <span class="one_sp"></span>&lt;div
-        <span *ngIf="isInlineBlockList[1]">style="{{ displayParam }}" </span>
+        <span *ngIf="isInlineBlockList[1]"
+          >style="display : {{ displayParam }}"
+        </span>
         <button (click)="UpdateInlineBlock(1)">
           <span *ngIf="isInlineBlockList[1]">Off </span
           ><span *ngIf="!isInlineBlockList[1]">On </span>
@@ -176,7 +254,15 @@
     </div>
     <br />
 
-    <div style="display: block; border: solid 2px darkgreen">
+    <div style="color: gray">at Browser (How it is displayed)</div>
+    <div
+      id="viewer"
+      style="
+        display: block;
+        border: solid 2px lightgray;
+        background-color: lightgray;
+      "
+    >
       <span>span1</span>
       <div id="inline_block0">
         <div id="inline_block1">div2</div>
@@ -187,10 +273,18 @@
   </div>
 
   <div outarea [hidden]="displayParam !== displayParams[4]">
-    <div style="display: block; border: solid 2px cadetblue">
+    <div style="color: cadetblue">at HTML</div>
+    <div
+      id="controller"
+      style="
+        display: block;
+        border: solid 2px aquamarine;
+        background-color: aquamarine;
+      "
+    >
       &lt;span&gt;span1 &lt;/span&gt;<br />
       &lt;span
-      <span *ngIf="isGridList[0]">style="{{ displayParam }}" </span>
+      <span *ngIf="isGridList[0]">style="display : {{ displayParam }}" </span>
       <button (click)="UpdateGrid(0)">
         <span *ngIf="isGridList[0]">Off </span
         ><span *ngIf="!isGridList[0]">On </span> {{ displayParam }}</button
@@ -200,10 +294,14 @@
       <span class="one_sp">&lt;span&gt;span4&lt;/span&gt;</span><br />
       &lt;/span&gt;<br />
       &lt;span&gt;span5&lt;/span&gt;<br />
-      <br />
     </div>
+    <br />
 
-    <div style="display: block; border: solid 2px darkgreen">
+    <div style="color: gray">at Browser (How it is displayed)</div>
+    <div
+      id="viewer"
+      style="display: block; border: solid 2px; background-color: lightgray"
+    >
       <span>span1</span>
       <span id="grid0">
         <span>span2</span>
@@ -213,4 +311,6 @@
       <span>span5</span>
     </div>
   </div>
+  <button (click)="ControlBorder()">Set outline / Remove outline</button>
+  <br />
 </div>
