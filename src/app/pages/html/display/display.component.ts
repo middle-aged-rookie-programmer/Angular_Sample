@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { ElColors } from './type';
 import { style } from '@angular/animations';
@@ -19,13 +19,13 @@ export class DisplayComponent implements OnInit {
     span: ['#88ff33'],
   };
   public displayParams = [
-    'display : flex',
-    'display : inline-flex',
-    'display : block',
-    'display : inline-block',
-    'display : grid',
+    'flex',
+    'inline-flex',
+    'block',
+    'inline-block',
+    'grid',
   ];
-  public displayParam: string = 'display : flex';
+  public displayParam: string = 'flex';
   public innerHtml: string = '';
   hasBorder: boolean = false;
   public dp: any = '';
@@ -58,53 +58,46 @@ export class DisplayComponent implements OnInit {
   }
 
   RemoveBorder() {
-    let els: HTMLCollectionOf<HTMLElement> =
-      document.body.getElementsByTagName('div');
-    for (let i = 0; i < els.length; i++) {
-      els[i].removeAttribute('class');
-      if (els[i].hasAttribute('hasdisplay')) {
-        els[i].removeAttribute('class');
+    let viewerEls: NodeListOf<HTMLElement> =
+      document.querySelectorAll('#viewer');
+    viewerEls.forEach((viewerEl) => {
+      if (viewerEl != null && viewerEl.getElementsByTagName('div')) {
+        let els: HTMLCollectionOf<HTMLElement> =
+          viewerEl.getElementsByTagName('div');
+        for (let i = 0; i < els.length; i++) {
+          els[i].removeAttribute('class');
+        }
       }
-    }
 
-    els = document.body.getElementsByTagName('span');
-    for (let i = 0; i < els.length; i++) {
-      els[i].removeAttribute('class');
-      if (els[i].hasAttribute('hasdisplay')) {
-        els[i].removeAttribute('class');
+      if (viewerEl != null && viewerEl.getElementsByTagName('span')) {
+        let els: HTMLCollectionOf<HTMLElement> =
+          viewerEl.getElementsByTagName('span');
+        for (let i = 0; i < els.length; i++) {
+          els[i].removeAttribute('class');
+        }
       }
-    }
+    });
   }
 
   SetBorder() {
-    let els: HTMLCollectionOf<HTMLElement> =
-      document.body.getElementsByTagName('div');
-    for (let i = 0; i < els.length; i++) {
-      els[i].setAttribute('class', 'divBorder');
-      if (els[i].hasAttribute('hasdisplay')) {
-        els[i].setAttribute(
-          'class',
-          els[i].getAttribute('class') + ' dispBorder'
-        );
+    let viewerEls: NodeListOf<HTMLElement> =
+      document.querySelectorAll('#viewer');
+    viewerEls.forEach((viewerEl) => {
+      if (viewerEl != null && viewerEl.getElementsByTagName('div')) {
+        let els: HTMLCollectionOf<HTMLElement> =
+          viewerEl.getElementsByTagName('div');
+        for (let i = 0; i < els.length; i++) {
+          els[i].setAttribute('class', 'divBorder');
+        }
       }
-      if (els[i].hasAttribute('outarea')) {
-        els[i].removeAttribute('class');
+      if (viewerEl != null && viewerEl.getElementsByTagName('span')) {
+        let els: HTMLCollectionOf<HTMLElement> =
+          viewerEl.getElementsByTagName('span');
+        for (let i = 0; i < els.length; i++) {
+          els[i].setAttribute('class', 'spanBorder');
+        }
       }
-    }
-
-    els = document.body.getElementsByTagName('span');
-    for (let i = 0; i < els.length; i++) {
-      els[i].setAttribute('class', 'spanBorder');
-      if (els[i].hasAttribute('hasdisplay')) {
-        els[i].setAttribute(
-          'class',
-          els[i].getAttribute('class') + ' dispBorder'
-        );
-      }
-      if (els[i].hasAttribute('outarea')) {
-        els[i].removeAttribute('class');
-      }
-    }
+    });
   }
 
   GoTopPage() {
